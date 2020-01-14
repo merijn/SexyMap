@@ -24,6 +24,7 @@ local blizzButtons = {
 local dynamicButtons = {
 	MiniMapTrackingFrame = L["Tracking Button (When Available)"],
 	MiniMapMailFrame = L["New Mail Indicator (When Available)"],
+	MiniMapBattlefieldFrame = L["Queue Status (PvP/LFG) Button (When Available)"],
 }
 
 local options = {
@@ -184,6 +185,7 @@ function mod:OnInitialize(profile)
 				MiniMapMailFrame = "always",
 				GameTimeFrame = "never",
 				MiniMapTrackingFrame = "always",
+				MiniMapBattlefieldFrame = "always",
 			},
 			allowDragging = true,
 			lockDragging = false,
@@ -192,6 +194,11 @@ function mod:OnInitialize(profile)
 	end
 
 	self.db = profile.buttons
+
+	-- XXX temp Jan 2020
+	if not self.db.visibilitySettings.MiniMapBattlefieldFrame then
+		self.db.visibilitySettings.MiniMapBattlefieldFrame = "always"
+	end
 end
 
 function mod:OnEnable()
@@ -487,7 +494,7 @@ end
 do
 	local tbl = {
 		Minimap, MinimapZoneTextButton, MiniMapTrackingFrame, TimeManagerClockButton, GameTimeFrame,
-		MinimapZoomIn, MinimapZoomOut, MiniMapWorldMapButton, MiniMapMailFrame
+		MinimapZoomIn, MinimapZoomOut, MiniMapWorldMapButton, MiniMapMailFrame, MiniMapBattlefieldFrame
 	}
 
 	function mod:AddButton(_, button)
