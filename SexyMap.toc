@@ -20,7 +20,7 @@
 ## X-Curse-Project-ID: 15936
 ## X-WoWI-ID: 21538
 
-## OptionalDeps: Ace3, AceGUI-3.0-SharedMediaWidgets, LibSharedMedia-3.0, LibChatAnims, Blizzard_TimeManager
+## OptionalDeps: Ace3, AceGUI-3.0-SharedMediaWidgets, LibSharedMedia-3.0, LibChatAnims, Blizzard_TimeManager, FlyPaper
 ## X-Embeds: Ace3, AceGUI-3.0-SharedMediaWidgets, LibSharedMedia-3.0, LibChatAnims, CallbackHandler-1.0, LibStub
 
 
@@ -37,6 +37,7 @@ localization\zhTW.lua
 localization\zhCN.lua
 localization\ptBR.lua
 
+FlyPaper.lua
 SexyMap.lua
 
 Shapes.lua

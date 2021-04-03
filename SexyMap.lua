@@ -6,6 +6,7 @@ end
 
 local name, sm = ...
 sm.core = {}
+local FlyPaper = LibStub('LibFlyPaper-2.0')
 
 local mod = sm.core
 local L = sm.L
@@ -397,6 +398,7 @@ MinimapBackdrop:SetPoint("CENTER", Minimap, "CENTER", -8, -23)
 
 function mod:SetupMap()
 	local Minimap = Minimap
+        FlyPaper.AddFrame(name, 1, Minimap)
 
 	-- Hide the Minimap during combat. Remove the comments (--) to enable.
 	--mod.frame:RegisterEvent("PLAYER_REGEN_DISABLED")
@@ -464,14 +466,20 @@ function mod:SetupMap()
 	Minimap:SetScript("OnDragStart", function(self) if self:IsMovable() then self:StartMoving() end end)
 	Minimap:SetScript("OnDragStop", function(self)
 		self:StopMovingOrSizing()
-		local p, _, rp, x, y = Minimap:GetPoint()
-		mod.db.point, mod.db.relpoint, mod.db.x, mod.db.y = p, rp, x, y
+                self:Stick()
+		local p, relFrame, rp, x, y = Minimap:GetPoint()
+		relFrame = relFrame:GetName()
+		mod.db.point, mod.db.relFrame, mod.db.relpoint, mod.db.x, mod.db.y = p, relFrame, rp, x, y
 	end)
 
 	if mod.db.point then
+		local relFrame = UIParent
+		if mod.db.relFrame ~= nil then
+			relFrame = mod.db.relFrame
+		end
 		Minimap:ClearAllPoints()
 		Minimap:SetParent(UIParent)
-		Minimap:SetPoint(mod.db.point, UIParent, mod.db.relpoint, mod.db.x, mod.db.y)
+		Minimap:SetPoint(mod.db.point, mod.db.relFrame, mod.db.relpoint, mod.db.x, mod.db.y)
 		Minimap:SetFrameStrata("LOW")
 	end
 	self.SetupMap = nil
